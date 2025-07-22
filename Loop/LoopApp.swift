@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct LoopApp: App {
+    @StateObject private var viewModel = ShoppingListViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ShoppingListEntryView(viewModel: viewModel)
         }
     }
 }
