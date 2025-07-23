@@ -13,21 +13,26 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         manager.distanceFilter = movementThreshold
         manager.requestWhenInUseAuthorization()
         print("🔔 Requested location authorization")
+        
+        if manager.authorizationStatus == .authorizedWhenInUse
+            || manager.authorizationStatus == .authorizedAlways {
+            manager.startUpdatingLocation()
+        }
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         print("🔔 Authorization status changed: \(manager.authorizationStatus.rawValue)")
 
         switch manager.authorizationStatus {
-        case .authorizedWhenInUse, .authorizedAlways:
-            print("✅ Authorized — starting location updates")
-            manager.startUpdatingLocation()
+            case .authorizedWhenInUse, .authorizedAlways:
+                print("✅ Authorized — starting location updates")
+                manager.startUpdatingLocation()
 
-        case .denied, .restricted:
-            print("❌ Location permission denied or restricted")
+            case .denied, .restricted:
+                print("❌ Location permission denied or restricted")
 
-        default:
-            break
+            default:
+                break
         }
     }
     

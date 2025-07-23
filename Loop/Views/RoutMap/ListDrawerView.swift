@@ -14,9 +14,9 @@ struct ListDrawerView: View {
     @State private var drawerOffset: CGFloat = 650
     @State private var dragStartOffset: CGFloat = 650
     private let collapsedOffset: CGFloat = 650  // where it rests when closed (adjust for desired peek)
-    private let expandedOffset: CGFloat = 100   // where it rests when fully expanded
+    private let expandedOffset: CGFloat = 100   // where it rests when fully expandedv
     // ----------------------- //
-    
+        
     var body: some View {
         let groupedItems = Dictionary(grouping: items, by: { $0.store })
         
@@ -84,7 +84,7 @@ struct ListDrawerView: View {
         .shadow(radius: 10)
         .offset(y: drawerOffset)
         .simultaneousGesture(
-            DragGesture()
+            DragGesture(minimumDistance: 10)
                 .onChanged { value in
                     let newOffset = value.translation.height + dragStartOffset
                     if newOffset >= expandedOffset && newOffset <= collapsedOffset {
@@ -120,13 +120,13 @@ struct ListDrawerView: View {
     }
 }
 
-#Preview {
-    let sampleItems = [
-        ShoppingItem(name: "Milk", store: "Whole Foods"),
-        ShoppingItem(name: "Chocolate Milk", store: "Whole Foods"),
-        ShoppingItem(name: "Car Battery", store: "AutoZone"),
-        ShoppingItem(name: "Eggs", store: "Trader Joe's"),
-        ShoppingItem(name: "Paper Towels", store: "Publix"),
-    ]
-    RouteMapView(items: sampleItems)
-}
+//#Preview {
+//    let sampleItems = [
+//        ShoppingItem(name: "Milk", store: "Whole Foods"),
+//        ShoppingItem(name: "Chocolate Milk", store: "Whole Foods"),
+//        ShoppingItem(name: "Car Battery", store: "AutoZone"),
+//        ShoppingItem(name: "Eggs", store: "Trader Joe's"),
+//        ShoppingItem(name: "Paper Towels", store: "Publix"),
+//    ]
+//    RouteMapView(items: sampleItems)
+//}

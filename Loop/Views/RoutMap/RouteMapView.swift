@@ -24,9 +24,19 @@ struct RouteMapView: View {
                 }
                 
                 ForEach(routes.indices, id: \.self) { idx in
-                    let route = routes[idx]
-                    MapPolyline(route)
-                        .stroke(.purple, lineWidth: 8)
+                    MapPolyline(routes[idx])
+                        .stroke(
+                          .linearGradient(
+                            colors: [.blue.opacity(0.3), .blue],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                          ),
+                          style: StrokeStyle(
+                            lineWidth: 6,
+                            lineCap: .round,
+                            lineJoin: .round
+                          )
+                        )
                         .mapOverlayLevel(level: .aboveRoads)
                 }
             }
